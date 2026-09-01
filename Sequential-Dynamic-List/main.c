@@ -17,8 +17,8 @@ static void printMenu(void)
 
 int main(void)
 {
-    DynamicList* dynamicList = malloc(sizeof(DynamicList));
-    createDynamicList(dynamicList);
+    DynamicList* dynamicList;
+    dynamicList = createDynamicList();
 
     int choice = -1;
     int position;
