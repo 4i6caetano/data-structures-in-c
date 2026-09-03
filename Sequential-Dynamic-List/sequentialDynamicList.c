@@ -4,13 +4,23 @@
 #include "sequentialDynamicList.h"
 #include "utils.h"
 
-void createDynamicList(DynamicList* dynamicList)
+DynamicList* createDynamicList()
 {
-    if(isListValid(dynamicList) == LIST_IS_NOT_VALID) return;
+    DynamicList* dynamicList = malloc(sizeof(DynamicList));
+
+    if(dynamicList == NULL) return NULL;
 
     dynamicList->list = malloc(INITIAL_CAPACITY * sizeof(float));
+    if(dynamicList->list == NULL)
+    {
+        free(dynamicList);
+        return NULL;
+    }
+
     dynamicList->capacity =  INITIAL_CAPACITY;
     dynamicList->quantityOfElements = 0;
+
+    return dynamicList;
 }
 
 int appendElement(DynamicList* dynamicList, float appendedItem)

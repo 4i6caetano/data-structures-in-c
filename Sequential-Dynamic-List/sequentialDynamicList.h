@@ -14,8 +14,6 @@
 
 #define INITIAL_CAPACITY 5
 
-typedef struct dynamicList DynamicList;
-
 typedef struct dynamicList
 {
     float *list;
@@ -23,7 +21,7 @@ typedef struct dynamicList
     int quantityOfElements;
 } DynamicList;
 
-void createDynamicList(DynamicList* dynamicList);
+DynamicList* createDynamicList();
 
 int appendElement(DynamicList* dynamicList, float appendedItem);
 
