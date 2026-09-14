@@ -14,9 +14,33 @@ typedef enum
     FUNCTION_SUCESS
 } FunctionState;
 
+typedef enum
+{
+
+    LIST_IS_EMPTY,
+    LIST_IS_NOT_EMPTY
+
+} ListCapacityState;
+
 typedef struct node Node;
 
 typedef struct linkedList LinkedList;
+
+typedef struct node
+ {
+
+    double value;
+    Node* nextNode;
+
+ } Node;
+ 
+ typedef struct linkedList
+{
+
+    Node* header;
+    int quantityOfNodes;
+
+} LinkedList;
 
 #include "utils.h"
 

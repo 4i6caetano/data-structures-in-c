@@ -15,3 +15,10 @@ int validateNode(Node* node)
 
     return VALID;
 }
+
+int checkListCapacity(LinkedList* linkedList)
+{
+    if(linkedList->quantityOfNodes == 0) return LIST_IS_EMPTY;
+
+    else return LIST_IS_NOT_EMPTY;
+}

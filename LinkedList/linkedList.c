@@ -1,22 +1,6 @@
  #include<stdio.h>
  
  #include "linkedList.h"
- 
- typedef struct node
- {
-
-    double value;
-    Node* nextNode;
-
- } Node;
- 
- typedef struct linkedList
-{
-
-    Node* header;
-    int quantityOfNodes;
-
-} LinkedList;
 
 LinkedList* createLinkedList(void)
 {
@@ -24,6 +8,7 @@ LinkedList* createLinkedList(void)
     if(validate(linkedList) == NOT_VALID) return NULL;
 
     linkedList->header->nextNode = NULL;
+    linkedList->header->value = -1;
     linkedList->quantityOfNodes = 0;
 
     return linkedList;
@@ -39,7 +24,7 @@ int appendOnLinkedList(double value, LinkedList* linkedList)
     node->value = value;
     node->nextNode = NULL;
 
-    if(linkedList->header == NULL)
+    if(linkedList->header->value == -1)
     {
         linkedList->header = node;
         linkedList->quantityOfNodes++;
@@ -48,8 +33,8 @@ int appendOnLinkedList(double value, LinkedList* linkedList)
 
     else
     {
-        Node* nextNode = linkedList->header;
-        Node* currentNode = linkedList->header->nextNode;
+        Node* currentNode = linkedList->header;
+        Node* nextNode = currentNode->nextNode;
 
         while(nextNode != NULL)
         {
@@ -123,9 +108,31 @@ int printLinkedList(LinkedList* linkedList)
 int clearLinkedList(LinkedList* linkedList)
 {
     if(validate(linkedList) == NOT_VALID) return FUNCTION_FAILURE;
+
+    if(checkListCapacity(linkedList) == LIST_IS_EMPTY)
+    {
+        printf("List is already empty. ");
+        return FUNCTION_FAILURE;
+    }
+
+    Node* currentNode = linkedList->header;
+    Node* nextNode = currentNode->nextNode;
+
+    while(nextNode != NULL)
+    {
+        free(currentNode);
+        currentNode = nextNode;
+        nextNode = nextNode->nextNode;
+    }
+
+    return FUNCTION_SUCESS;
 }
 
 int freeLinkedList(LinkedList* linkedList)
 {
     if(validate(linkedList) == NOT_VALID) return FUNCTION_FAILURE;
+
+    clearLinkedList(linkedList);
+
+    free(linkedList);
 }

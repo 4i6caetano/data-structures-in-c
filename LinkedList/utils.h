@@ -7,4 +7,6 @@ int validate(LinkedList* linkedList);
 
 int validateNode(Node* node);
 
+int checkListCapacity(LinkedList* linkedList);
+
 #endif
