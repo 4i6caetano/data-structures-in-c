@@ -7,8 +7,7 @@ LinkedList* createLinkedList(void)
     LinkedList* linkedList = malloc(sizeof(LinkedList));
     if(validate(linkedList) == NOT_VALID) return NULL;
 
-    linkedList->header->nextNode = NULL;
-    linkedList->header->value = -1;
+    linkedList->header = NULL;
     linkedList->quantityOfNodes = 0;
 
     return linkedList;
@@ -24,11 +23,14 @@ int appendOnLinkedList(double value, LinkedList* linkedList)
     node->value = value;
     node->nextNode = NULL;
 
-    if(linkedList->header->value == -1)
+    if(linkedList->header == NULL)
     {
         linkedList->header = node;
         linkedList->quantityOfNodes++;
-        return FUNCTION_SUCESS;
+
+        printf("The list was initialized. ");
+
+        return FUNCTION_SUCCESS;
     }
 
     else
@@ -45,7 +47,7 @@ int appendOnLinkedList(double value, LinkedList* linkedList)
         currentNode->nextNode = node;
         linkedList->quantityOfNodes++;
 
-        return FUNCTION_SUCESS;
+        return FUNCTION_SUCCESS;
     }
 }
 
@@ -64,23 +66,42 @@ int insertOnLinkedList(double value, int position, LinkedList* linkedList)
 
     node->value = value;
 
-    Node* currentNode = linkedList->header;
-    Node* nextNode = linkedList->header->nextNode;
+    Node* currentNode;
+    Node* nextNode;
     // nextNode vai estar apontando exatamente aonde queremos inserir
 
-    for(int i = 0; i < position; i++)
+    if(0 == position)
     {
-        currentNode = nextNode;
-        nextNode = nextNode->nextNode;
+        nextNode = linkedList->header;
+
+        linkedList->header = node;
+        linkedList->header->nextNode = nextNode;
+
+        linkedList->quantityOfNodes++;
+
+        return FUNCTION_SUCCESS;
     }
 
-    //here, the insertion happens
-    currentNode->nextNode = node;
-    node->nextNode = nextNode;
+    else
+    {
 
-    linkedList->quantityOfNodes++;
+        currentNode = linkedList->header;
+        nextNode = linkedList->header->nextNode;
 
-    return FUNCTION_SUCESS;
+        for(int i = 0; i < position -1; i++)
+        {
+            currentNode = nextNode;
+            nextNode = nextNode->nextNode;
+        }
+
+        //here, the insertion happens
+        currentNode->nextNode = node;
+        node->nextNode = nextNode;
+
+        linkedList->quantityOfNodes++;
+
+        return FUNCTION_SUCCESS;
+    }
 
 }
 
@@ -97,12 +118,33 @@ int showLinkedListSize(LinkedList* linkedList)
 
     printf("The linked list currently holds %d values. ", &linkedListSize);
 
-    return FUNCTION_SUCESS;
+    return FUNCTION_SUCCESS;
 }
 
 int printLinkedList(LinkedList* linkedList)
 {
     if(validate(linkedList) == NOT_VALID) return FUNCTION_FAILURE;
+
+    if(linkedList->header == NULL)
+    {
+        printf("\n  (lista vazia)\n\n");
+        return FUNCTION_SUCCESS;
+    }
+
+    printf("\n  HEADER -> ");
+
+    Node* currentNode = linkedList->header;
+    while(currentNode != NULL)
+    {
+        printf("[ %.2f ]", currentNode->value);
+        currentNode = currentNode->nextNode;
+        if(currentNode != NULL) printf(" -> ");
+    }
+
+    printf(" -> NULL\n");
+    printf("  Total de nós: %d\n\n", linkedList->quantityOfNodes);
+
+    return FUNCTION_SUCCESS;
 }
 
 int clearLinkedList(LinkedList* linkedList)
@@ -125,7 +167,7 @@ int clearLinkedList(LinkedList* linkedList)
         nextNode = nextNode->nextNode;
     }
 
-    return FUNCTION_SUCESS;
+    return FUNCTION_SUCCESS;
 }
 
 int freeLinkedList(LinkedList* linkedList)

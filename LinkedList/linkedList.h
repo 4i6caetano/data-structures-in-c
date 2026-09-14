@@ -11,7 +11,7 @@ typedef enum
 {
     FUNCTION_FAILURE = -1,
     FUNCTION_UNEXPECTED_BEHAVIOR,
-    FUNCTION_SUCESS
+    FUNCTION_SUCCESS
 } FunctionState;
 
 typedef enum
