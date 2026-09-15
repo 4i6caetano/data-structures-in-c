@@ -167,14 +167,23 @@ int clearLinkedList(LinkedList* linkedList)
         nextNode = nextNode->nextNode;
     }
 
+    free(currentNode);
+
+    linkedList->header == NULL;
+    linkedList->quantityOfNodes == 0;
+
     return FUNCTION_SUCCESS;
 }
 
-int freeLinkedList(LinkedList* linkedList)
+int freeLinkedList(LinkedList** linkedList)
 {
-    if(validate(linkedList) == NOT_VALID) return FUNCTION_FAILURE;
+    if(validate(*linkedList) == NOT_VALID) return FUNCTION_FAILURE;
 
-    clearLinkedList(linkedList);
+    clearLinkedList(*linkedList);
 
-    free(linkedList);
+    free(*linkedList);
+
+    *linkedList = NULL;
+
+    return FUNCTION_SUCCESS;
 }
