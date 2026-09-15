@@ -61,6 +61,12 @@ int insertOnLinkedList(double value, int position, LinkedList* linkedList)
         return FUNCTION_FAILURE;
     }
 
+    if(position < 0)
+    {
+        printf("Position cannot be negative. ");
+        return FUNCTION_FAILURE;
+    }
+
     Node* node = malloc(sizeof(Node));
     if(validateNode(node) == NOT_VALID) return FUNCTION_FAILURE;
 
@@ -168,7 +174,7 @@ int showLinkedListSize(LinkedList* linkedList)
 
     int linkedListSize = linkedList->quantityOfNodes;
 
-    printf("The linked list currently holds %d values. ", &linkedListSize);
+    printf("The linked list currently holds %d values. ", linkedListSize);
 
     return FUNCTION_SUCCESS;
 }
@@ -221,7 +227,7 @@ int clearLinkedList(LinkedList* linkedList)
 
     free(currentNode);
 
-    linkedList->header == NULL;
+    linkedList->header = NULL;
     linkedList->quantityOfNodes == 0;
 
     return FUNCTION_SUCCESS;
