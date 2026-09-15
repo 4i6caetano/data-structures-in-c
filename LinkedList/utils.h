@@ -1,7 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "linkedList.h"
+typedef struct linkedList LinkedList;
+typedef struct node Node;
 
 int validate(LinkedList* linkedList);
 

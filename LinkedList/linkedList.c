@@ -1,4 +1,5 @@
  #include<stdio.h>
+ #include<stdlib.h>
  
  #include "linkedList.h"
 
@@ -36,12 +37,10 @@ int appendOnLinkedList(double value, LinkedList* linkedList)
     else
     {
         Node* currentNode = linkedList->header;
-        Node* nextNode = currentNode->nextNode;
 
-        while(nextNode != NULL)
+        while(currentNode->nextNode != NULL) 
         {
-            currentNode = nextNode;
-            nextNode = nextNode->nextNode;
+            currentNode = currentNode->nextNode;
         }
         
         currentNode->nextNode = node;
@@ -228,7 +227,7 @@ int clearLinkedList(LinkedList* linkedList)
     free(currentNode);
 
     linkedList->header = NULL;
-    linkedList->quantityOfNodes == 0;
+    linkedList->quantityOfNodes = 0;
 
     return FUNCTION_SUCCESS;
 }
