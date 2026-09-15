@@ -88,7 +88,7 @@ int insertOnLinkedList(double value, int position, LinkedList* linkedList)
         currentNode = linkedList->header;
         nextNode = linkedList->header->nextNode;
 
-        for(int i = 0; i < position -1; i++)
+        for(int index = 0; index < position -1; index++)
         {
             currentNode = nextNode;
             nextNode = nextNode->nextNode;
@@ -108,7 +108,59 @@ int insertOnLinkedList(double value, int position, LinkedList* linkedList)
 int removeOfLinkedList(LinkedList* linkedList, int position)
 {
     if(validate(linkedList) == NOT_VALID) return FUNCTION_FAILURE;
-}
+
+    if(linkedList->quantityOfNodes == 0 || linkedList->header == NULL)
+    {
+        printf("There's no value to be removed from, the list is blank. ");
+        return FUNCTION_FAILURE;
+    }
+
+    if(position >= linkedList->quantityOfNodes)
+    {
+        printf("The position is off limits. ");
+        return FUNCTION_FAILURE;
+    }
+
+    if(position < 0)
+    {
+        printf("Position cannot be negative. ");
+        return FUNCTION_FAILURE;
+    }
+
+    Node* currentNode = linkedList->header;
+    Node* nextNode = linkedList->header->nextNode;
+
+    if(position == 0)
+    {
+        free(linkedList->header);
+        linkedList->header = nextNode;
+
+        linkedList->quantityOfNodes--;
+
+        if(linkedList->header == NULL)
+        {
+            printf("The list is now blank. ");
+        }
+
+        return FUNCTION_SUCCESS;
+    }
+    else
+    {
+        for(int index = 0; index < position - 1; index++)
+        {
+            currentNode = nextNode;
+            nextNode = nextNode->nextNode;
+        }
+
+        currentNode->nextNode = nextNode->nextNode;
+        free(nextNode);
+
+        linkedList->quantityOfNodes--;
+
+        return FUNCTION_SUCCESS;
+    }
+
+    }
 
 int showLinkedListSize(LinkedList* linkedList)
 {
