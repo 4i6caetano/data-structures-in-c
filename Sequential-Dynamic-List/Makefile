@@ -2,16 +2,12 @@ CC = gcc
 CFLAGS = -Wall -g
 
 SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
 TARGET = programa
 
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(TARGET)
 
 .PHONY: clean
