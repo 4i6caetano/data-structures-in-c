@@ -13,7 +13,21 @@ typedef enum
 
 typedef struct node Node;
 
-typedef struct binarySearchTree BinarySearchTree;
+typedef struct node
+{
+
+    double value;
+    Node* left_node;
+    Node* right_node;
+
+} Node;
+
+typedef struct binarySearchTree
+{
+    Node* root;
+    int quantityOfNodes;
+    int height;
+} BinarySearchTree;
 
 BinarySearchTree* createNewBinarySearchTree(void);
 
