@@ -2,22 +2,8 @@
 #include <stdlib.h>
 
 #include "binarySearchTree.h"
-
-typedef struct node
-{
-
-    double value;
-    Node* left_node;
-    Node* right_node;
-
-} Node;
-
-typedef struct binarySearchTree
-{
-    Node* root;
-    int quantityOfNodes;
-    int height;
-} BinarySearchTree;
+#include "properties.h"
+#include "utils.h"
 
 BinarySearchTree* createNewBinarySearchTree(void)
 {
@@ -54,4 +40,71 @@ int initializeBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
     binarySearchTree->height = 0;
 
     return SUCCESS;
+}
+
+static int insertRecursion(Node* currentNode, double value)
+{
+    if(currentNode->value == value)
+    {
+        printf("The tree does not support doubled values. ");
+        return FAILURE;
+    }
+
+    else if(currentNode->value > value) //LEFT
+    {
+        if(currentNode->left_node != NULL) //if THERE IS a value, continue recursion
+        {
+            return insertRecursion(currentNode->left_node, value);
+        }
+
+        else // if its NULL, insert
+        {
+            Node* newNode = malloc(sizeof(Node));
+            if(!newNode) return FAILURE;
+            newNode->value = value;
+            newNode->left_node = NULL;
+            newNode->right_node = NULL;
+
+            currentNode->left_node = newNode;
+            return SUCCESS;
+        }
+    }
+
+    else //RIGHT
+    {
+        if(currentNode->right_node != NULL) //if THERE IS a value, continue recursion
+        {
+            return insertRecursion(currentNode->right_node, value);
+        }
+
+        else // if its NULL, insert
+        {
+            Node* newNode = malloc(sizeof(Node));
+            if(!newNode) return FAILURE;
+            newNode->value = value;
+            newNode->left_node = NULL;
+            newNode->right_node = NULL;
+
+            currentNode->right_node = newNode;
+            return SUCCESS;
+        }
+    }
+}
+
+int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
+{
+    if(checkValidation(binarySearchTree) ==  FAILURE) return FAILURE;
+
+    if(insertRecursion(binarySearchTree->root, value) == SUCCESS)
+    {
+        binarySearchTree->quantityOfNodes++;
+        printf("The %f value was successfully inserted. ", value);
+        return SUCCESS;
+    }
+
+    else
+    {
+        printf("There was an error inserting the value. ");
+        return FAILURE;
+    }
 }
