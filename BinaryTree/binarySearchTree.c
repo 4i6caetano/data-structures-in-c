@@ -108,3 +108,59 @@ int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
         return FAILURE;
     }
 }
+
+static int findRecursion(Node* currentNode, double value, int* depth)
+{
+
+    if(currentNode->value == value)
+    {
+        return SUCCESS;
+    }
+
+    else if(currentNode->value > value) //LEFT
+    {
+        if(currentNode->left_node == NULL)
+        {
+            return FAILURE;
+        }
+
+        else
+        {
+            (*depth)++;
+            return findRecursion(currentNode->left_node, value, depth);
+        }
+    }
+
+    else //RIGHT
+    {
+        if(currentNode->right_node == NULL)
+        {
+            return FAILURE;
+        }
+
+        else
+        {
+            (*depth)++;
+            return findRecursion(currentNode->right_node, value, depth);
+        }
+    }
+}
+
+int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
+{
+    if(checkValidation(binarySearchTree) ==  FAILURE) return FAILURE;
+
+    int depth = 0;
+
+    if(findRecursion(binarySearchTree->root, value, &depth) == SUCCESS)
+    {
+        printf("The %f value was found in depth %d! ", value, depth);
+        return SUCCESS;
+    }
+
+    else
+    {
+        printf("There's no such value in the tree. However, you can try another one, if you want! ");
+        return FAILURE;
+    }
+}

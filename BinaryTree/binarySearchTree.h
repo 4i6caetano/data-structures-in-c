@@ -35,9 +35,9 @@ int initializeBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
 
 int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
-int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
-
 int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
+
+int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
 int removeLastValueInBinarySearchTree(BinarySearchTree* binarySearchTree);
 
