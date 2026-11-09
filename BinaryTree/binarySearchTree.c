@@ -156,7 +156,7 @@ int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value
     {
         printf("The %f value was found in depth %d! ", value, depth);
         return SUCCESS;
-    }
+    } 
 
     else
     {
