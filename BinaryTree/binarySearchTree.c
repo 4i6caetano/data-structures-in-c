@@ -164,3 +164,34 @@ int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value
         return FAILURE;
     }
 }
+
+static void clearRecursive(Node* node)
+{
+
+    if(node == NULL) return;
+
+    clearRecursive(node->left_node);
+    clearRecursive(node->right_node);
+
+    free(node);
+
+    return;
+    
+}
+
+int clearBinarySearchTree(BinarySearchTree* binarySearchTree)
+{
+    checkValidation(binarySearchTree);
+
+    if(clearRecursive(binarySearchTree->root) == SUCCESS)
+    {
+        printf("Tree was completely cleared. Remember to delete the tree if you won't use it anymore. ");
+        return SUCCESS;
+    }
+    
+    else
+    {
+        printf("An error occured. ");
+        return FAILURE;
+    }
+}
