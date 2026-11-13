@@ -12,7 +12,7 @@ BinarySearchTree* createNewBinarySearchTree(void)
 
     binarySearchTree->root = NULL;
     binarySearchTree->quantityOfNodes = 0;
-    binarySearchTree->height = -1; 
+    binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
     
     return binarySearchTree;
 }
@@ -181,17 +181,35 @@ static void clearRecursive(Node* node)
 
 int clearBinarySearchTree(BinarySearchTree* binarySearchTree)
 {
-    checkValidation(binarySearchTree);
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
-    if(clearRecursive(binarySearchTree->root) == SUCCESS)
-    {
-        printf("Tree was completely cleared. Remember to delete the tree if you won't use it anymore. ");
+    clearRecursive(binarySearchTree->root);
+
+        binarySearchTree->root = NULL;
+        binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+        binarySearchTree->quantityOfNodes = 0;
+
+        printf("Tree was completely cleared.\nIf you want to create another, remember to initialize it. \n If you won't use it anymore, remember to delete the tree. ");
         return SUCCESS;
-    }
-    
-    else
+}
+
+int deleteBinarySearchTree(BinarySearchTree* binarySearchTree)
+{
+    if(!binarySearchTree) return FAILURE;
+
+    if(binarySearchTree->root != NULL)
     {
-        printf("An error occured. ");
-        return FAILURE;
+        char answer;
+        printf("The tree will be completely deleted. Do you want to continue? (y/n)");
+        scanf("%c", &answer);
+        if(answer == 'n') return FAILURE;
+        else
+        {
+            clearBinarySearchTree(binarySearchTree);
+        }
     }
+
+    free(binarySearchTree);
+
+    return SUCCESS;
 }

@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NOT_INITIALIZED_HEIGHT -1
+
 typedef enum
 {
     FAILURE = -1,
