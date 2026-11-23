@@ -335,3 +335,97 @@ int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
         return FAILURE;
     }
 }
+
+// We return the PARENT node so we can safely remove a node if needed
+static Node* maximumSearchRecursive(Node* node) //outmost RIGHT node
+{
+    // root CANNOT be NULL because we validated it
+
+    if(node->right_node->right_node == NULL) // This is the rightmost value
+    {
+        return node;
+    }
+
+    else // continue searching for the biggest value
+    {
+        return maximumSearchRecursive(node->right_node);
+    }
+}
+
+static Node* minimumSearchRecursive();
+
+int findMaximumValue(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    if(binarySearchTree->root->right_node == NULL) // the biggest value is the root
+    {
+        printf("The biggest value in the tree is the root itself, '%f'. ", binarySearchTree->root->value);
+        return SUCCESS;
+    }
+
+    else
+    {
+        Node* parentNode = maximumSearchRecursive(binarySearchTree->root);
+        printf("The biggest value in the tree is '%f'. ", parentNode->right_node->value);
+        return SUCCESS;
+    }
+}
+
+int removeMaximumValue(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    if(binarySearchTree->root->right_node == NULL) // the root itself is the biggest value
+    {
+        Node* oldRoot = binarySearchTree->root;
+        printf("The greatest removed value was the root, '%f'. ", oldRoot->value);
+
+        binarySearchTree->root = oldRoot->left_node; // becomes NULL if there was only 1 node
+        free(oldRoot);
+        binarySearchTree->quantityOfNodes--;
+
+        if(binarySearchTree->quantityOfNodes == 0)
+        {
+            binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+            printf("Remember to initialize the tree again. ");
+        }
+
+        return SUCCESS;
+    }
+
+    else
+    {
+        Node* parentNode = maximumSearchRecursive(binarySearchTree->root);
+        Node* maxNode = parentNode->right_node;
+
+        printf("The greatest removed value was '%f'. ", maxNode->value);
+
+        parentNode->right_node = maxNode->left_node; // preserves left child if it exists, otherwise NULL
+        free(maxNode);
+        binarySearchTree->quantityOfNodes--;
+
+        return SUCCESS;
+    }
+}
+
+int findMinimumValue(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    if(binarySearchTree->quantityOfNodes == 1)
+    {
+        printf("The tree has just one node, so the smallest value is the root, '%f'", binarySearchTree->root->value);
+    }
+}
+
+int removeMinimumValue(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    printf("The tree has just one node, so the removed value is the root, '%f'. Remember to initalize the tree again. ", binarySearchTree->root->value);
+
+        binarySearchTree->quantityOfNodes--;
+        binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+        binarySearchTree->root = NULL;
+}

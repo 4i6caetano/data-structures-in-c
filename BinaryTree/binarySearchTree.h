@@ -39,10 +39,18 @@ int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
 
 int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
-int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
-
 int clearBinarySearchTree(BinarySearchTree* binarySearchTree);
 
 int deleteBinarySearchTree(BinarySearchTree* binarySearchTree);
+
+int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
+
+int findMaximumValue(BinarySearchTree* binarySearchTree);
+
+int removeMaximumValue(BinarySearchTree* binarySearchTree);
+
+int findMinimumValue(BinarySearchTree* binarySearchTree);
+
+int removeMinimumValue(BinarySearchTree* binarySearchTree);
 
 #endif
