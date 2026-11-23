@@ -474,3 +474,78 @@ int removeMinimumValue(BinarySearchTree* binarySearchTree)
         return SUCCESS;
     }
 }
+
+static void recursivePreOrder(Node* node)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    else
+    {
+        // ROOT
+        printf("%f, ", node->value);
+
+        // LEFT
+        recursivePreOrder(node->left_node);
+
+        //RIGHT
+        recursivePreOrder(node->right_node);
+    }
+}
+
+int preOrder(BinarySearchTree* binarySearchTree)
+{
+
+}
+
+static void recursiveInOrder(Node* node)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    else
+    {
+        // LEFT
+        recursiveInOrder(node->left_node);
+
+        // ROOT
+        printf("%f, ", node->value);
+
+        //RIGHT
+        recursivePreOrder(node->right_node);
+    }
+}
+
+static void recursivePostOrder(Node* node)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    else
+    {
+        // LEFT
+        recursiveInOrder(node->left_node);
+
+        // RIGHT
+        recursivePreOrder(node->right_node);
+
+        //ROOT
+        printf("%f, ", node->value);
+    }
+}
+
+int inOrder(BinarySearchTree* binarySearchTree)
+{
+
+}
+
+int postOrder(BinarySearchTree* binarySearchTree)
+{
+
+}
