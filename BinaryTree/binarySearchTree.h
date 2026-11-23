@@ -53,4 +53,12 @@ int findMinimumValue(BinarySearchTree* binarySearchTree);
 
 int removeMinimumValue(BinarySearchTree* binarySearchTree);
 
+int preOrder(BinarySearchTree* binarySearchTree);
+
+int inOrder(BinarySearchTree* binarySearchTree);
+
+int postOrder(BinarySearchTree* binarySearchTree);
+
+int getTreeHeight(BinarySearchTree* binarySearchTree);
+
 #endif
