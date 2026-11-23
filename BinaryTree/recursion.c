@@ -240,7 +240,7 @@ void recursivePreOrder(Node* node)
     else
     {
         // ROOT
-        printf("%f, ", node->value);
+        printf("%.2f, ", node->value);
 
         // LEFT
         recursivePreOrder(node->left_node);
@@ -263,7 +263,7 @@ void recursiveInOrder(Node* node)
         recursiveInOrder(node->left_node);
 
         // ROOT
-        printf("%f, ", node->value);
+        printf("%.2f, ", node->value);
 
         //RIGHT
         recursiveInOrder(node->right_node);
@@ -286,7 +286,7 @@ void recursivePostOrder(Node* node)
         recursivePostOrder(node->right_node);
 
         //ROOT
-        printf("%f, ", node->value);
+        printf("%.2f, ", node->value);
     }
 }
 

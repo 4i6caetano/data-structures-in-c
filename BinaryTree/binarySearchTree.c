@@ -61,7 +61,7 @@ int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
     if(insertRecursion(binarySearchTree->root, value) == SUCCESS)
     {
         binarySearchTree->quantityOfNodes++;
-        printf("The %f value was successfully inserted. ", value);
+        printf("The %.2f value was successfully inserted. ", value);
         return SUCCESS;
     }
 
@@ -80,7 +80,7 @@ int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value
 
     if(findRecursion(binarySearchTree->root, value, &depth) == SUCCESS)
     {
-        printf("The %f value was found in depth %d! ", value, depth);
+        printf("The %.2f value was found in depth %d! ", value, depth);
         return SUCCESS;
     } 
 
@@ -132,7 +132,7 @@ int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
 
     if(removeValueRecursive(binarySearchTree->root, NULL, value) == SUCCESS)
     {
-        printf("The value '%f' was successfully removed. ", value);
+        printf("The value '%.2f' was successfully removed. ", value);
         binarySearchTree->quantityOfNodes--;
 
         if(binarySearchTree->quantityOfNodes == 0) // REMOVED THE ROOT
@@ -157,14 +157,14 @@ int findMaximumValue(BinarySearchTree* binarySearchTree)
 
     if(binarySearchTree->root->right_node == NULL) // the biggest value is the root
     {
-        printf("The biggest value in the tree is the root itself, '%f'. ", binarySearchTree->root->value);
+        printf("The biggest value in the tree is the root itself, '%.2f'. ", binarySearchTree->root->value);
         return SUCCESS;
     }
 
     else
     {
         Node* parentNode = maximumSearchRecursive(binarySearchTree->root);
-        printf("The biggest value in the tree is '%f'. ", parentNode->right_node->value);
+        printf("The biggest value in the tree is '%.2f'. ", parentNode->right_node->value);
         return SUCCESS;
     }
 }
@@ -176,7 +176,7 @@ int removeMaximumValue(BinarySearchTree* binarySearchTree)
     if(binarySearchTree->root->right_node == NULL) // the root itself is the biggest value
     {
         Node* oldRoot = binarySearchTree->root;
-        printf("The greatest removed value was the root, '%f'. ", oldRoot->value);
+        printf("The greatest removed value was the root, '%.2f'. ", oldRoot->value);
 
         binarySearchTree->root = oldRoot->left_node; // becomes NULL if there was only 1 node
         free(oldRoot);
@@ -196,7 +196,7 @@ int removeMaximumValue(BinarySearchTree* binarySearchTree)
         Node* parentNode = maximumSearchRecursive(binarySearchTree->root);
         Node* maxNode = parentNode->right_node;
 
-        printf("The greatest removed value was '%f'. ", maxNode->value);
+        printf("The greatest removed value was '%.2f'. ", maxNode->value);
 
         parentNode->right_node = maxNode->left_node; // preserves left child if it exists, otherwise NULL
         free(maxNode);
@@ -212,14 +212,14 @@ int findMinimumValue(BinarySearchTree* binarySearchTree)
 
     if(binarySearchTree->root->left_node == NULL) // the smallest value is the root
     {
-        printf("The smallest value in the tree is the root, '%f'. ", binarySearchTree->root->value);
+        printf("The smallest value in the tree is the root, '%.2f'. ", binarySearchTree->root->value);
         return SUCCESS;
     }
 
     else
     {
         Node* parentNode = minimumSearchRecursive(binarySearchTree->root);
-        printf("The smallest value in the tree is '%f'. ", parentNode->left_node->value);
+        printf("The smallest value in the tree is '%.2f'. ", parentNode->left_node->value);
         return SUCCESS;
     }
 }
@@ -231,7 +231,7 @@ int removeMinimumValue(BinarySearchTree* binarySearchTree)
     if(binarySearchTree->root->left_node == NULL) // the root itself is the smallest value
     {
         Node* oldRoot = binarySearchTree->root;
-        printf("The smallest removed value was the root, '%f'. ", oldRoot->value);
+        printf("The smallest removed value was the root, '%.2f'. ", oldRoot->value);
 
         binarySearchTree->root = oldRoot->right_node; // becomes NULL if there was only 1 node
         free(oldRoot);
@@ -251,7 +251,7 @@ int removeMinimumValue(BinarySearchTree* binarySearchTree)
         Node* parentNode = minimumSearchRecursive(binarySearchTree->root);
         Node* minNode = parentNode->left_node;
 
-        printf("The smallest removed value was '%f'. ", minNode->value);
+        printf("The smallest removed value was '%.2f'. ", minNode->value);
 
         parentNode->left_node = minNode->right_node; // preserves right child if it exists, otherwise NULL
         free(minNode);
