@@ -61,4 +61,6 @@ int postOrder(BinarySearchTree* binarySearchTree);
 
 int getTreeHeight(BinarySearchTree* binarySearchTree);
 
+int printBinarySearchTree(BinarySearchTree* binarySearchTree);
+
 #endif

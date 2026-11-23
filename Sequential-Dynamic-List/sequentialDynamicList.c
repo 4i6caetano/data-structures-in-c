@@ -36,7 +36,7 @@ int appendElement(DynamicList* dynamicList, float appendedItem)
     dynamicList->list[dynamicList->quantityOfElements] = appendedItem;
     dynamicList->quantityOfElements++;
 
-    printf("Number %f sucessfully appended. ", appendedItem);
+    printf("Number %.2f sucessfully appended. ", appendedItem);
     return FUNCTION_SUCCESS;
 }
 
@@ -138,7 +138,7 @@ int printList(DynamicList* dynamicList)
 
     for(int index = 0; index < dynamicList->quantityOfElements; index++)
     {
-        printf("[%d]: %f\t", index, dynamicList->list[index]);
+        printf("[%d]: %.2f\t", index, dynamicList->list[index]);
     }
 
     return FUNCTION_SUCCESS;

@@ -32,7 +32,12 @@ int main(void)
     while (choice != 0)
     {
         printMenu();
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1)
+        {
+            while (getchar() != '\n');
+            printf("Invalid input.\n");
+            continue;
+        }
 
         switch (choice)
         {

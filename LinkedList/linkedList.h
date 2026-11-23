@@ -44,6 +44,22 @@ typedef struct node
 
 } LinkedList;
 
+LinkedList* createLinkedList(void);
+
+int appendOnLinkedList(double value, LinkedList* linkedList);
+
+int insertOnLinkedList(double value, int position, LinkedList* linkedList);
+
+int removeOfLinkedList(LinkedList* linkedList, int position);
+
+int showLinkedListSize(LinkedList* linkedList);
+
+int printLinkedList(LinkedList* linkedList);
+
+int clearLinkedList(LinkedList* linkedList);
+
+int freeLinkedList(LinkedList** linkedList);
+
 #include "utils.h"
 
 #endif
