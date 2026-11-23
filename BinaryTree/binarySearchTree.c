@@ -352,7 +352,18 @@ static Node* maximumSearchRecursive(Node* node) //outmost RIGHT node
     }
 }
 
-static Node* minimumSearchRecursive();
+static Node* minimumSearchRecursive(Node* node) //outmost LEFT node
+{
+    if(node->left_node->left_node == NULL) // This is the leftmost value
+    {
+        return node;
+    }
+
+    else // continue searching for the smallest value
+    {
+        return minimumSearchRecursive(node->left_node);
+    }
+}
 
 int findMaximumValue(BinarySearchTree* binarySearchTree)
 {
@@ -413,9 +424,17 @@ int findMinimumValue(BinarySearchTree* binarySearchTree)
 {
     if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
-    if(binarySearchTree->quantityOfNodes == 1)
+    if(binarySearchTree->root->left_node == NULL) // the smallest value is the root
     {
-        printf("The tree has just one node, so the smallest value is the root, '%f'", binarySearchTree->root->value);
+        printf("The smallest value in the tree is the root, '%f'. ", binarySearchTree->root->value);
+        return SUCCESS;
+    }
+
+    else
+    {
+        Node* parentNode = minimumSearchRecursive(binarySearchTree->root);
+        printf("The smallest value in the tree is '%f'. ", parentNode->left_node->value);
+        return SUCCESS;
     }
 }
 
@@ -423,9 +442,35 @@ int removeMinimumValue(BinarySearchTree* binarySearchTree)
 {
     if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
-    printf("The tree has just one node, so the removed value is the root, '%f'. Remember to initalize the tree again. ", binarySearchTree->root->value);
+    if(binarySearchTree->root->left_node == NULL) // the root itself is the smallest value
+    {
+        Node* oldRoot = binarySearchTree->root;
+        printf("The smallest removed value was the root, '%f'. ", oldRoot->value);
 
+        binarySearchTree->root = oldRoot->right_node; // becomes NULL if there was only 1 node
+        free(oldRoot);
         binarySearchTree->quantityOfNodes--;
-        binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
-        binarySearchTree->root = NULL;
+
+        if(binarySearchTree->quantityOfNodes == 0)
+        {
+            binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+            printf("Remember to initialize the tree again. ");
+        }
+
+        return SUCCESS;
+    }
+
+    else
+    {
+        Node* parentNode = minimumSearchRecursive(binarySearchTree->root);
+        Node* minNode = parentNode->left_node;
+
+        printf("The smallest removed value was '%f'. ", minNode->value);
+
+        parentNode->left_node = minNode->right_node; // preserves right child if it exists, otherwise NULL
+        free(minNode);
+        binarySearchTree->quantityOfNodes--;
+
+        return SUCCESS;
+    }
 }
