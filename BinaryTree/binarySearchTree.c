@@ -113,7 +113,7 @@ int deleteBinarySearchTree(BinarySearchTree* binarySearchTree)
     {
         char answer;
         printf("The tree will be completely deleted. Do you want to continue? (y/n)");
-        scanf("%c", &answer);
+        scanf(" %c", &answer);
         if(answer == 'n') return FAILURE;
         else
         {
@@ -294,4 +294,15 @@ int getTreeHeight(BinarySearchTree* binarySearchTree)
 
     printf("The tree height is %d. ", height);
     return height;
+}
+
+int printBinarySearchTree(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    printf("\n--- Binary Search Tree (nodes: %d) ---\n", binarySearchTree->quantityOfNodes);
+    printTreeRecursive(binarySearchTree->root, "", 0, 1);
+    printf("---------------------------------------\n");
+
+    return SUCCESS;
 }

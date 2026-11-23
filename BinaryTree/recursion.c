@@ -310,3 +310,41 @@ int getTreeHeightRecursive(Node* node)
         return rightHeight + 1;
     }
 }
+
+void printTreeRecursive(Node* node, const char* prefix, int isLeft, int isRoot)
+{
+    if(node == NULL) return;
+
+    char nextPrefix[256];
+
+    if(isRoot)
+    {
+        snprintf(nextPrefix, sizeof(nextPrefix), "%s", prefix);
+    }
+    else
+    {
+        snprintf(nextPrefix, sizeof(nextPrefix), "%s%s", prefix, isLeft ? "│   " : "    ");
+    }
+
+    printTreeRecursive(node->right_node, nextPrefix, 0, 0);
+
+    if(isRoot)
+    {
+        printf("%.2f\n", node->value);
+    }
+    else
+    {
+        printf("%s%s%.2f\n", prefix, isLeft ? "└── " : "┌── ", node->value);
+    }
+
+    if(isRoot)
+    {
+        snprintf(nextPrefix, sizeof(nextPrefix), "%s", prefix);
+    }
+    else
+    {
+        snprintf(nextPrefix, sizeof(nextPrefix), "%s%s", prefix, isLeft ? "    " : "│   ");
+    }
+
+    printTreeRecursive(node->left_node, nextPrefix, 1, 0);
+}
