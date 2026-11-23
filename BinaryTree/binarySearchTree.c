@@ -213,3 +213,105 @@ int deleteBinarySearchTree(BinarySearchTree* binarySearchTree)
 
     return SUCCESS;
 }
+
+static int removeValueRecursive(Node* node, Node* parentNode, double value)
+{
+    if(node == NULL)
+    {
+        return FAILURE; // INCORRECT NODE OR VALUE NOT FOUND
+    }
+
+    if(node->value != value)
+    {
+        if(node->value > value)
+        {
+            return removeValueRecursive(node->left_node, node, value);
+        }
+        
+        else
+        {
+            return removeValueRecursive(node->right_node, node, value);
+        }
+    }
+
+    else // 1. VALUE IS FOUND
+    {  
+        Node* replacedNode;
+
+        if(node->left_node != NULL && node->right_node != NULL) // 1.1 FULL NODE 
+        {
+            // place the BIGGEST NODE VALUE on the left side as the replacement
+            replacedNode = node->left_node;
+            while(replacedNode->right_node != NULL)
+            {
+                replacedNode = replacedNode->right_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->left_node, node, replacedNode->value);
+        }
+
+        else if(node->left_node != NULL && node->right_node == NULL) // 1.2 ONLY LEFT CHILDREN
+        {
+            replacedNode = node->left_node;
+
+            while(replacedNode -> right_node != NULL) // BIGEST VALUE OF THE LEFT SIDE
+            {
+                replacedNode = replacedNode->right_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->left_node, node, replacedNode->value);
+        }
+
+        else if(node->left_node == NULL && node->right_node != NULL) // 1.3 ONLY RIGHT CHILDREN
+        {
+            // SMALEST VALUE OF THE RIGHT SIDE
+            replacedNode = node->right_node;
+
+            while(replacedNode->left_node != NULL)
+            {
+                replacedNode = replacedNode->left_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->right_node, node, replacedNode->value);
+        }
+
+        else // 1.4 THE NODE HAS NO CHILDREN
+        {
+            if(parentNode == NULL) // IF THE NODE IS THE ROOT
+            {
+                printf("The root was removed. The tree is now blank.");
+                free(node);
+                return SUCCESS;
+            }
+
+            else if(node == parentNode->left_node) // the node is on the LEFT of the parent
+            {
+                parentNode->left_node = NULL;
+                free(node);
+
+                return SUCCESS;
+            }
+
+            else // the node is on the RIGHT of the parent
+            {
+                parentNode->right_node = NULL;
+                free(node);
+                
+                return SUCCESS;
+            }
+        }
+    }
+    //last element is the one on the leftmost part
+
+}
+
+int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+}
