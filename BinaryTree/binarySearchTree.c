@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "binarySearchTree.h"
-#include "properties.h"
 #include "recursion.h"
 
 BinarySearchTree* createNewBinarySearchTree(void)
@@ -264,15 +263,29 @@ int removeMinimumValue(BinarySearchTree* binarySearchTree)
 
 int preOrder(BinarySearchTree* binarySearchTree)
 {
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
+    recursivePreOrder(binarySearchTree->root);
+    return SUCCESS;
 }
 
 int inOrder(BinarySearchTree* binarySearchTree)
 {
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
+    recursiveInOrder(binarySearchTree->root);
+    return SUCCESS;
 }
 
 int postOrder(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    recursivePostOrder(binarySearchTree->root);
+    return SUCCESS;
+}
+
+int getTreeHeight(BinarySearchTree* binarySearchTree)
 {
 
 }
