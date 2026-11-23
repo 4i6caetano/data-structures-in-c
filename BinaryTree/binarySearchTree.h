@@ -41,8 +41,6 @@ int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value
 
 int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
-int removeLastValueInBinarySearchTree(BinarySearchTree* binarySearchTree);
-
 int clearBinarySearchTree(BinarySearchTree* binarySearchTree);
 
 int deleteBinarySearchTree(BinarySearchTree* binarySearchTree);

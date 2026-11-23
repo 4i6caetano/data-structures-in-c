@@ -314,4 +314,24 @@ static int removeValueRecursive(Node* node, Node* parentNode, double value)
 int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
 {
     if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    if(removeValueRecursive(binarySearchTree->root, NULL, value) == SUCCESS)
+    {
+        printf("The value '%f' was successfully removed. ", value);
+        binarySearchTree->quantityOfNodes--;
+
+        if(binarySearchTree->quantityOfNodes == 0) // REMOVED THE ROOT
+        {
+            binarySearchTree->root = NULL;
+            binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+        }
+
+        return SUCCESS;
+    }
+
+    else //FAILURE
+    {
+        printf("The value could not be found in the tree. ");
+        return FAILURE;
+    }
 }
