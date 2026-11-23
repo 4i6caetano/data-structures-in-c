@@ -12,7 +12,7 @@ BinarySearchTree* createNewBinarySearchTree(void)
 
     binarySearchTree->root = NULL;
     binarySearchTree->quantityOfNodes = 0;
-    binarySearchTree->height = -1; 
+    binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
     
     return binarySearchTree;
 }
@@ -105,6 +105,233 @@ int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double val
     else
     {
         printf("There was an error inserting the value. ");
+        return FAILURE;
+    }
+}
+
+static int findRecursion(Node* currentNode, double value, int* depth)
+{
+
+    if(currentNode->value == value)
+    {
+        return SUCCESS;
+    }
+
+    else if(currentNode->value > value) //LEFT
+    {
+        if(currentNode->left_node == NULL)
+        {
+            return FAILURE;
+        }
+
+        else
+        {
+            (*depth)++;
+            return findRecursion(currentNode->left_node, value, depth);
+        }
+    }
+
+    else //RIGHT
+    {
+        if(currentNode->right_node == NULL)
+        {
+            return FAILURE;
+        }
+
+        else
+        {
+            (*depth)++;
+            return findRecursion(currentNode->right_node, value, depth);
+        }
+    }
+}
+
+int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
+{
+    if(checkValidation(binarySearchTree) ==  FAILURE) return FAILURE;
+
+    int depth = 0;
+
+    if(findRecursion(binarySearchTree->root, value, &depth) == SUCCESS)
+    {
+        printf("The %f value was found in depth %d! ", value, depth);
+        return SUCCESS;
+    } 
+
+    else
+    {
+        printf("There's no such value in the tree. However, you can try another one, if you want! ");
+        return FAILURE;
+    }
+}
+
+static void clearRecursive(Node* node)
+{
+
+    if(node == NULL) return;
+
+    clearRecursive(node->left_node);
+    clearRecursive(node->right_node);
+
+    free(node);
+
+    return;
+    
+}
+
+int clearBinarySearchTree(BinarySearchTree* binarySearchTree)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    clearRecursive(binarySearchTree->root);
+
+        binarySearchTree->root = NULL;
+        binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+        binarySearchTree->quantityOfNodes = 0;
+
+        printf("Tree was completely cleared.\nIf you want to create another, remember to initialize it. \n If you won't use it anymore, remember to delete the tree. ");
+        return SUCCESS;
+}
+
+int deleteBinarySearchTree(BinarySearchTree* binarySearchTree)
+{
+    if(!binarySearchTree) return FAILURE;
+
+    if(binarySearchTree->root != NULL)
+    {
+        char answer;
+        printf("The tree will be completely deleted. Do you want to continue? (y/n)");
+        scanf("%c", &answer);
+        if(answer == 'n') return FAILURE;
+        else
+        {
+            clearBinarySearchTree(binarySearchTree);
+        }
+    }
+
+    free(binarySearchTree);
+
+    return SUCCESS;
+}
+
+static int removeValueRecursive(Node* node, Node* parentNode, double value)
+{
+    if(node == NULL)
+    {
+        return FAILURE; // INCORRECT NODE OR VALUE NOT FOUND
+    }
+
+    if(node->value != value)
+    {
+        if(node->value > value)
+        {
+            return removeValueRecursive(node->left_node, node, value);
+        }
+        
+        else
+        {
+            return removeValueRecursive(node->right_node, node, value);
+        }
+    }
+
+    else // 1. VALUE IS FOUND
+    {  
+        Node* replacedNode;
+
+        if(node->left_node != NULL && node->right_node != NULL) // 1.1 FULL NODE 
+        {
+            // place the BIGGEST NODE VALUE on the left side as the replacement
+            replacedNode = node->left_node;
+            while(replacedNode->right_node != NULL)
+            {
+                replacedNode = replacedNode->right_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->left_node, node, replacedNode->value);
+        }
+
+        else if(node->left_node != NULL && node->right_node == NULL) // 1.2 ONLY LEFT CHILDREN
+        {
+            replacedNode = node->left_node;
+
+            while(replacedNode -> right_node != NULL) // BIGEST VALUE OF THE LEFT SIDE
+            {
+                replacedNode = replacedNode->right_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->left_node, node, replacedNode->value);
+        }
+
+        else if(node->left_node == NULL && node->right_node != NULL) // 1.3 ONLY RIGHT CHILDREN
+        {
+            // SMALEST VALUE OF THE RIGHT SIDE
+            replacedNode = node->right_node;
+
+            while(replacedNode->left_node != NULL)
+            {
+                replacedNode = replacedNode->left_node;
+            }
+
+            node->value = replacedNode->value;
+
+            return removeValueRecursive(node->right_node, node, replacedNode->value);
+        }
+
+        else // 1.4 THE NODE HAS NO CHILDREN
+        {
+            if(parentNode == NULL) // IF THE NODE IS THE ROOT
+            {
+                printf("The root was removed. The tree is now blank.");
+                free(node);
+                return SUCCESS;
+            }
+
+            else if(node == parentNode->left_node) // the node is on the LEFT of the parent
+            {
+                parentNode->left_node = NULL;
+                free(node);
+
+                return SUCCESS;
+            }
+
+            else // the node is on the RIGHT of the parent
+            {
+                parentNode->right_node = NULL;
+                free(node);
+                
+                return SUCCESS;
+            }
+        }
+    }
+    //last element is the one on the leftmost part
+
+}
+
+int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
+{
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
+
+    if(removeValueRecursive(binarySearchTree->root, NULL, value) == SUCCESS)
+    {
+        printf("The value '%f' was successfully removed. ", value);
+        binarySearchTree->quantityOfNodes--;
+
+        if(binarySearchTree->quantityOfNodes == 0) // REMOVED THE ROOT
+        {
+            binarySearchTree->root = NULL;
+            binarySearchTree->height = NOT_INITIALIZED_HEIGHT;
+        }
+
+        return SUCCESS;
+    }
+
+    else //FAILURE
+    {
+        printf("The value could not be found in the tree. ");
         return FAILURE;
     }
 }

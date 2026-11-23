@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NOT_INITIALIZED_HEIGHT -1
+
 typedef enum
 {
     FAILURE = -1,
@@ -35,11 +37,9 @@ int initializeBinarySearchTree(BinarySearchTree* binarySearchTree, double value)
 
 int insertValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
-int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
-
 int findValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
-int removeLastValueInBinarySearchTree(BinarySearchTree* binarySearchTree);
+int removeValueInBinarySearchTree(BinarySearchTree* binarySearchTree, double value);
 
 int clearBinarySearchTree(BinarySearchTree* binarySearchTree);
 
