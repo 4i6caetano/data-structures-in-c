@@ -287,5 +287,11 @@ int postOrder(BinarySearchTree* binarySearchTree)
 
 int getTreeHeight(BinarySearchTree* binarySearchTree)
 {
+    if(checkValidation(binarySearchTree) == FAILURE) return FAILURE;
 
+    int height = getTreeHeightRecursive(binarySearchTree->root);
+    binarySearchTree->height = height;
+
+    printf("The tree height is %d. ", height);
+    return height;
 }

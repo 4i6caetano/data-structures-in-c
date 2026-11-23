@@ -23,4 +23,6 @@ void recursiveInOrder(Node* node);
 
 void recursivePostOrder(Node* node);
 
+int getTreeHeightRecursive(Node* node);
+
 #endif

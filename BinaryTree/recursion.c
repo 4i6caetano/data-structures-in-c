@@ -289,3 +289,24 @@ void recursivePostOrder(Node* node)
         printf("%f, ", node->value);
     }
 }
+
+int getTreeHeightRecursive(Node* node)
+{
+    if(node == NULL)
+    {
+        return NOT_INITIALIZED_HEIGHT;
+    }
+
+    int leftHeight = getTreeHeightRecursive(node->left_node);
+    int rightHeight = getTreeHeightRecursive(node->right_node);
+
+    if(leftHeight > rightHeight)
+    {
+        return leftHeight + 1;
+    }
+
+    else
+    {
+        return rightHeight + 1;
+    }
+}
